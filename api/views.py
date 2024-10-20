@@ -66,7 +66,18 @@ def daily_readings(request):
     return JsonResponse(data, safe=False)
 
 # View to get all readings for device1
-def device1_readings(request):
-    readings = DataLogger.objects.filter(device="device1")
-    data = [{"device": r.device, "temperature": r.temperature, "turbidity": r.turbidity, "conductivity": r.conductivity, "longitude": r.longitude, "latitude": r.latitude, "timestamp": r.timestamp} for r in readings]
+def device_readings(request, device):
+    readings = DataLogger.objects.filter(device=device)
+    data = [
+        {
+            "device": r.device,
+            "temperature": r.temperature,
+            "turbidity": r.turbidity,
+            "conductivity": r.conductivity,
+            "longitude": r.longitude,
+            "latitude": r.latitude,
+            "timestamp": r.timestamp,
+        }
+        for r in readings
+    ]
     return JsonResponse(data, safe=False)
